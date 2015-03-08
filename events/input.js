@@ -1,0 +1,13 @@
+var keyEnum = {
+    PLAYER_UP: 87,
+    PLAYER_LEFT: 65,
+    PLAYER_RIGHT: 68,
+    PLAYER_DOWN: 83,
+    PLAYER_JUMP: 32,
+
+    ARROW_KEY_UP: 38,
+    ARROW_KEY_LEFT: 37,
+    ARROW_KEY_RIGHT: 39,
+    ARROW_KEY_DOWN: 40,
+    LCTRL: 17
+}

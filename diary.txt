@@ -1,0 +1,191 @@
+	Creating game in javascript. After creating a clone of the old classic Jezzball for windows (95?) in javascript i decided to do a plattformer.
+ 	
+	About 5 h
+
+ 	I started out by creating some graphics just by happenstance when mocking around with a pixel art program. I created a little ninja dude (or girl)
+ 	and started to get excited on making a platform game. I decided to try this out in javascript since Im using it regurlarly on my job as a web developer.
+ 	If javascript proves to be too cumbersome I may reside to some other language like python, or C# or whatever!
+
+2014-01-18, 3h
+	
+	- After getting some basic understanding of how to implement a more modular approach in javascript i finally
+		got started with the game. I created some objects, entity, movableentity and player for instance, where the sooner
+		inherits from the former. However, going for classical inheritance in JS is not recommended (by some) so I will see
+		if I will keep this inheritance chain. Probably I will go for the approved prototypal inheritance instead which basically means,
+		building objects from other objects.
+
+		After a couple of hours I finally got the player represented on the map as well as som crude ground and sky. The task of getting him
+		to move was kind of simple (done that before), as well as him jumping. Thats were i left off.
+
+2014-01-20, 2:15 h
+	
+	- Task: Look into a basic map editor
+	Today : Downloaded Tiled, a free tiled based map editor that saves the map data as xml. Created a level according to some tutorial online.
+			Read xml to JS-object
+			* Struggled a bit with loading xml file, seems I cannot just load xml file from disk ( big security risk with that aproach), so 
+			I need to install a simple web server next :). I will go for python, and install Simple web server, but that will be next time.
+
+			Defined some tasks also as seen below
+	- Tasks: 
+		Create objects that represents:
+		TileSet
+		Tile ?
+		Map (An object constisting of tilesets and layers etc)
+		Layer (constising of Tiles)
+
+		See ya.
+
+2014-01-21: 2,5 h
+	Install python and simple web server, got it to load xml file and got the values from it. Created TileSet and map. Need to create
+		* layer
+		* tile
+
+	-	Try to render the map :)
+		Plan to do next time_
+			* Parse the layer info into layer objects. This objetcs holds tiles in certain order. The tiles specifies which part of a tileset image
+			to show. Tiles are sorted from left to down.
+2014-01-22: 2,5 h
+	* Fixed layer and tiles objects and parsed them :), now its time to figure out how to render a map.
+		- The map object can implement a render function which renders the tiles :D
+			* OKEY, fixed the render function which draws all the tiles from a map, on a given position on the screen!
+
+	Do next: 
+		* Refactor the map file, maybe make it faster to run ?
+
+		* Draw all layers
+
+		* Add objects for collision detection
+			- Maybe add enemy entity
+
+2014-01-24:
+	* Starting to add collision detection on the map tiles. Im roughly halfway through, 
+2014-01-25
+	* BIG UPDATE! COllistion detection works with map tiles and player ! Game draws all tiles and make sure certain tiles are solid for 
+	player to collide on. This took waaay longer that it should have, mainly because of my stubbornness of trying to inventing the wheel
+	all the time! It took my all saturday and halv sunday figure out that the solution was on sdltutorials.com, yepp the site I have done some
+	tutorials on way in the past. But Im so glad this works now :). 
+	Drew some ugly grass tiles and made a level, so the ninja dude(!) can jump a round and look cool now. Throwed in some stars just for the heck of it!
+
+2014-01-26
+	Small update: Today I started on a small animation object that will keep track on what frame of player to show. It
+	will show correct image depending on what direction player is facing, if he's jumping, and also running. In the latter case
+	a small running animmation will start, and the speed on the animation will correlate with the speed of the player (in direction x). Yea, 
+	just like mario :).
+
+	But today I only made a skeleton of the object (class?) but implemented at least that the player can face left and right now, which he couldn't before.
+
+2014-01-27:
+	Did drawing of plyer jumping as well as trying to get the player blinking while idle, That will require some more work to get it to work 
+	nice in the game. Started code some ugly code anyhow. When player jumps it draws correct jumping symbol anyway! Thats goood..
+
+2014-01-28:
+	Spent 20 minutes writing down pseudo code getting player to frickin blink! :P . Got mad when loosing in Hearthstone and decided I could not go to bed before I got some game programming done.
+
+2014-01-29:
+	Player around with some movement variables. Not entirely happy with how she moves around. Need to fix that when shes jumping she 
+	sometimes bounces of a roof to far away.	
+
+2014-01-31:
+	* Make simple animation loop  of players frame (DONE) ;)
+
+	* Edge the player closer in Y-direction to walls, like if jumping, there should not be a gap between the head and roof when colliding	
+		- Done, did a little hack, that player jumps closer to stuff now.
+
+	* Made background scroll and made the map twice as large, 60 tiles width and 30  tiles height. But now the performance
+		seems to have gone down. Is it to time consuming looping through all those tiles ? 
+		Add restriction in render function in map object not to draw tiles that are outside the screen. 
+
+2014-02-01
+	Map performance tweaks!
+		* Only draw tiles that are visible on screen!
+		* Only render map, when it actuall has moved.
+
+2014-02-06
+	* Saw an interresting channel on youtube today, about making video games. Scoping! Make something small, thats actually playable
+	from the start. So what I did, in this game was, make the player able to switch gravity pull. So now I have a prototype to make
+	levels on. The only thing lacking is making deadly tiles, I will choose chainsaws for this prototype, and level progress! Clearing
+	a level is like collecting something, i dunno, sheep for instance. So my goal is to make 10 levels that will introduce player to
+	jumping, switching gravity, avoiding chainsaws. Yepp thats it! And then upload this shit for free on the internet. DONE! I will give
+	it a week most. Thanks Extra credits, a youtube channel, and my work colleague who gave me the tip on this.
+
+	* My next game, will be like a shooting range game, only you shoot wild life and stuff. 
+
+2014-02-08
+	* Made some spikes (to die on :)) and a door for reaching the next level. I got it rendering okay now. 
+
+		- Make player die on spikes (Done)
+		- When player dies restart level (Done)
+		- When player reaches door and presses down, go to next level (or end game)
+			* Make player sense door (DONE)
+			* Restart game when walk into door DONE
+			* Show next level when walk into door (DONE)
+
+		- When player goes beyond map: die and restart DONE
+		- Make 1- 10 levels (depending on how I feel)
+			- Made level 1 DONE
+			-Make level 2 DONE
+		- Make some intro screen DONE	
+		- When going to last door on last level, show finish screen! Yey!
+		- Show help texts
+			* Show how to jump (One level dedicated at this) DONE
+			* Show how to switch gravity (one level dedicatied) DONE	
+			* Show text when over door	DONE
+
+		- Congratz! Your game is finished. Put the game online and forget that it existed :) (nah, just kidding, but Im kind of tired
+		on this little ninja piece of shit right now)
+
+		- Time to finish this, 1 week, next sunday (2014-02-15)
+
+2014-02-11
+	- Make player die on spikes (Done)
+		- When player dies restart level (Done)
+		- When player reaches door and presses down, go to next level (or end game)
+			* Make player sense door (DONE)
+			* Restart game when walk into door DONE
+			* Show next level when walk into door (DONE)
+
+	- Made three levels 
+	- Today Annso tested the game for the first time. She sucked! But she improved alot on just a couple of tries!
+
+2014-02-14
+	- This saturday afternoon, Im at my work place grinding some gaming code :). Feels super nice to work with a big 27" screen for a change.
+	- Fixed tutorial text for level 1 and 2. This is enough. Now the player can play on his own :)
+
+
+	Okay, so basically its time to start making levels. BUT before that, I need to tweak some of the collision detection, player vs walls and player vs spikes.
+
+	* Fix better col detection
+		- PLayer vs tiles 
+		- Player vs spikes
+
+	* Create 8 more levels.
+	* Create End screen	
+
+2014-02-15
+	- Added offsets for player vs tiles so that it more aligns to player sprite instead of a box bigger than the sprite. DONE
+	- If player collides with spikes from the left and right, ignore death penalty, spikes should not hurt from side.
+		Or better, add a little offset to spikes from the sides !
+
+		* I added offset from the side for spikes. Now player can dodge them easier! :)
+	
+	Okay, so this is whats left...
+	* Create 8 more levels.
+	* Create End screen	
+
+2014-03-01
+	- Okay, time to start creating levels 
+		1. Intro move and door
+		2. Intro jump
+		3. Intro gravity
+		4. Intro spikes
+
+	- Fix vertical offset on spikes. DONE good enough!
+	- Fix better ground detection (Player can jump if standing next to wall) DONE
+	- Fix end screen showing time and deaths of player!  DONE! Puh :)
+
+	- More levels
+		Yepp. Some levels are hard as hell though. And way to many moments on same levels. I need to split up a couple of levels into
+		three or something. Then 11 will be like 15 levels. Nice!
+
+2014-03-02
+	- Started splitting some levels, this is fun!
