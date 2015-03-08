@@ -1,5 +1,40 @@
-var events = {
-    setupPlayerEvents: function (player) {
+(function(exports) {
+
+    // iPad events
+    function setupPlayerEventsMobile(player) {
+        var canJump = true;
+        var canWalkIntoDoor = true;
+
+        var TILT_NEUTRAL = "neutral",
+            TILT_CCW = "counter-clockwise",
+            TILT_CW = "clockwise";
+        var TILT_THRESHOLD = 10;
+        var currentTilt = TILT_NEUTRAL;
+
+        function betaToTilt(beta) {
+            if(Math.abs(beta) < TILT_THRESHOLD) {
+                return TILT_NEUTRAL;
+            } else if (beta >= TILT_THRESHOLD) {
+                return TILT_CCW;
+            } else if (beta <= -TILT_THRESHOLD) {
+                return TILT_CW;
+            }
+        }
+
+        gyro.frequency = 60;
+        gyro.startTracking(function(o) {
+            var newTilt = betaToTilt(o.beta);
+            if(newTilt != currentTilt) {
+                alert('Tilt went from ' + currentTilt + ' to ' + newTilt);
+            }
+
+            currentTilt = newTilt;
+        });
+
+        // TODO: toggleGravity() on tap
+    };
+
+    function setupPlayerEventsDesktop(player) {
 
         var canJump = true;
         var canWalkIntoDoor = true;
@@ -65,5 +100,20 @@ var events = {
         document.body.addEventListener("keyup", function(e) {
             movePlayer(e, false);
         });
-    }
-};
+    };
+
+    function isTouchDevice() {
+      return ('ontouchstart' in window);
+    };
+
+    exports.events = {
+        setupPlayerEvents: function(player) {
+            if(isTouchDevice()) {
+                return setupPlayerEventsMobile(player);
+            } else {
+                return setupPlayerEventsDesktop(player);
+            }
+        }
+    };
+
+})(window);
