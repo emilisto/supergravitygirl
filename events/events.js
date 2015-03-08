@@ -21,12 +21,37 @@
             }
         }
 
-        gyro.frequency = 60;
+        gyro.frequency = 30;
         gyro.startTracking(function(o) {
+
+            // `o` provides the three Euler angles (alpha, beta, gamma) telling the
+            // orientation of the user's device. See here https://en.wikipedia.org/wiki/Euler_angles
+            // for how they work.
+
             var newTilt = betaToTilt(o.beta);
             if(newTilt != currentTilt) {
-                alert('Tilt went from ' + currentTilt + ' to ' + newTilt);
+                console.debug('Tilt went from ' + currentTilt + ' to ' + newTilt);
             }
+
+            // FIXME: this would be clearer if the player object instead just
+            // acted as a state machine - now we have to remember if we were
+            // in "go left" or "go right" mode.
+            switch(currentTilt) {
+            case TILT_NEUTRAL:
+                player.setGoLeft(false);
+                player.setGoRight(false);
+                break;
+            case TILT_CCW:
+                player.setGoRight(false);
+                player.setGoLeft(true);
+                break;
+            case TILT_CW:
+                player.setGoLeft(false);
+                player.setGoRight(true);
+                break;
+            }
+
+            // TODO: perhaps use the gamma angle to trigger up/down?
 
             currentTilt = newTilt;
         });
